@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+{% block title %}Order confirmed · AI QA Shop{% endblock %}
+{% block content %}
+<section class="confirmation" data-testid="order-confirmation">
+  <p class="eyebrow">Order confirmed</p><h1>Thank you,<br>{{ order.customer_name }}.</h1>
+  <p>Your order ID is <strong data-testid="order-id">#{{ order.id }}</strong>. We will send the details to {{ order.email }}.</p>
+  <a class="button" href="/">Return to catalog</a>
+</section>
+{% endblock %}

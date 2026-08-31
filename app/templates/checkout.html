@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block title %}Checkout · AI QA Shop{% endblock %}
+{% block content %}
+<section class="page-heading"><p class="eyebrow">Final step</p><h1>Where should it go?</h1></section>
+<section class="checkout-layout">
+  <form class="checkout-form" method="post" action="/checkout" data-testid="checkout-form">
+    {% if error %}<p class="alert" role="alert">{{ error }}</p>{% endif %}
+    <label>Full name<input name="customer_name" required value="{{ values.get('customer_name', '') }}" data-testid="customer-name"></label>
+    <label>Email address<input type="email" name="email" required value="{{ values.get('email', '') }}" data-testid="email"></label>
+    <label>Delivery address<textarea name="delivery_address" required data-testid="delivery-address">{{ values.get('delivery_address', '') }}</textarea></label>
+    <button type="submit" data-testid="place-order">Place order</button>
+  </form>
+  <aside class="summary"><span>{{ cart['items']|length }} item types</span><strong>${{ '%.2f'|format(cart.total_price) }}</strong><p>No payment is required for this shop.</p></aside>
+</section>
+{% endblock %}

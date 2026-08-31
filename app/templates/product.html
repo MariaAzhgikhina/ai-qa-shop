@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block title %}{{ product.name }} · AI QA Shop{% endblock %}
+{% block content %}
+<section class="detail" data-testid="product-detail">
+  <div class="detail-visual"><span>0{{ product.id }}</span><small>{{ product.category }}</small></div>
+  <div>
+    <a class="back" href="/">← Back to catalog</a>
+    <p class="eyebrow">{{ product.category }}</p>
+    <h1>{{ product.name }}</h1>
+    <p class="description">{{ product.description }}</p>
+    <p class="detail-price">${{ '%.2f'|format(product.price) }}</p>
+    <p>{{ product.stock_quantity }} units available</p>
+    {% if request.query_params.get('error') %}<p class="alert" role="alert">{{ request.query_params.get('error') }}</p>{% endif %}
+    <form class="buy-form" method="post" action="/cart/items">
+      <input type="hidden" name="product_id" value="{{ product.id }}">
+      <label>Quantity <input type="number" name="quantity" min="1" max="{{ product.stock_quantity }}" value="1" data-testid="quantity-input"></label>
+      <button type="submit" data-testid="add-to-cart" {% if product.stock_quantity == 0 %}disabled{% endif %}>Add to cart</button>
+    </form>
+  </div>
+</section>
+{% endblock %}

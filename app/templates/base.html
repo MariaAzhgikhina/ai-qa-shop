@@ -1,0 +1,20 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}AI QA Shop{% endblock %}</title>
+  <link rel="stylesheet" href="{{ url_for('static', path='/styles.css') }}">
+</head>
+<body>
+  <header class="site-header">
+    <a class="brand" href="/" data-testid="home-link"><span>AI QA</span> SHOP</a>
+    <nav aria-label="Main navigation">
+      <a href="/">Catalog</a>
+      <a class="cart-link" href="/cart" data-testid="cart-link">Cart <strong>{{ cart_count }}</strong></a>
+    </nav>
+  </header>
+  <main>{% block content %}{% endblock %}</main>
+  <footer>Small goods. Clear choices. Reliable checkout.</footer>
+</body>
+</html>

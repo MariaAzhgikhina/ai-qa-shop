@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% block title %}Catalog · AI QA Shop{% endblock %}
+{% block content %}
+<section class="hero">
+  <p class="eyebrow">Nine useful things</p>
+  <h1>Everyday objects,<br><em>carefully selected.</em></h1>
+  <p>Simple tools for work, home, and the moments in between.</p>
+</section>
+
+<form class="filters" method="get" data-testid="catalog-filters">
+  <label>Category
+    <select name="category" data-testid="category-filter">
+      <option value="">All categories</option>
+      {% for category in categories %}<option value="{{ category }}" {% if selected_category == category %}selected{% endif %}>{{ category }}</option>{% endfor %}
+    </select>
+  </label>
+  <label>Order
+    <select name="sort" data-testid="price-sort">
+      <option value="">Featured</option>
+      <option value="price_asc" {% if selected_sort == 'price_asc' %}selected{% endif %}>Price: low to high</option>
+      <option value="price_desc" {% if selected_sort == 'price_desc' %}selected{% endif %}>Price: high to low</option>
+    </select>
+  </label>
+  <button type="submit">Apply</button>
+</form>
+
+<section class="product-grid" data-testid="product-list">
+  {% for product in products %}
+  <article class="product-card" data-testid="product-card">
+    <div class="product-number">0{{ product.id }}</div>
+    <p class="category">{{ product.category }}</p>
+    <h2><a href="/products/{{ product.id }}" data-testid="product-name">{{ product.name }}</a></h2>
+    <p>{{ product.description }}</p>
+    <div class="product-meta"><strong>${{ '%.2f'|format(product.price) }}</strong><span>{{ product.stock_quantity }} in stock</span></div>
+    <form method="post" action="/cart/items">
+      <input type="hidden" name="product_id" value="{{ product.id }}">
+      <input type="hidden" name="quantity" value="1">
+      <button type="submit" data-testid="add-to-cart-{{ product.id }}" {% if product.stock_quantity == 0 %}disabled{% endif %}>Add to cart</button>
+    </form>
+  </article>
+  {% else %}<p class="empty-state">No products match this category.</p>{% endfor %}
+</section>
+{% endblock %}

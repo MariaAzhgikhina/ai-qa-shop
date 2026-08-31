@@ -1,0 +1,13 @@
+services:
+  shop:
+    build: .
+    ports:
+      - "8000:8000"
+    environment:
+      DATABASE_PATH: /app/data/shop.db
+      SESSION_SECRET: local-docker-session-secret
+    volumes:
+      - shop_data:/app/data
+
+volumes:
+  shop_data:
