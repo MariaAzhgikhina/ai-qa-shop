@@ -1,9 +1,13 @@
 {% extends "base.html" %}
 {% block title %}Order confirmed · AI QA Shop{% endblock %}
 {% block content %}
-<section class="confirmation" data-testid="order-confirmation">
-  <p class="eyebrow">Order confirmed</p><h1>Thank you,<br>{{ order.customer_name }}.</h1>
-  <p>Your order ID is <strong data-testid="order-id">#{{ order.id }}</strong>. We will send the details to {{ order.email }}.</p>
-  <a class="button" href="/">Return to catalog</a>
-</section>
+<div class="state-wrap shell">
+  <section class="confirmation state-card" data-testid="order-confirmation">
+    <div class="success-mark" aria-hidden="true"></div>
+    <p class="eyebrow">Order confirmed</p><h1>Thank you, {{ order.customer_name }}.</h1>
+    <p>Your order has been created. We will send the details to {{ order.email }}.</p>
+    <p class="order-reference">Order ID <strong data-testid="order-id">#{{ order.id }}</strong></p>
+    <a class="button" href="/">Return to catalog</a>
+  </section>
+</div>
 {% endblock %}

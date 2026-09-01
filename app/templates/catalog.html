@@ -2,42 +2,46 @@
 {% block title %}Catalog · AI QA Shop{% endblock %}
 {% block content %}
 <section class="hero">
-  <p class="eyebrow">Nine useful things</p>
-  <h1>Everyday objects,<br><em>carefully selected.</em></h1>
-  <p>Simple tools for work, home, and the moments in between.</p>
+  <div class="shell hero-inner">
+    <p class="eyebrow">A small, useful collection</p>
+    <h1>Everyday things,<br><span>easy to choose.</span></h1>
+    <p>Thoughtful essentials for work, home, and everywhere in between.</p>
+  </div>
 </section>
 
-<form class="filters" method="get" data-testid="catalog-filters">
-  <label>Category
-    <select name="category" data-testid="category-filter">
-      <option value="">All categories</option>
-      {% for category in categories %}<option value="{{ category }}" {% if selected_category == category %}selected{% endif %}>{{ category }}</option>{% endfor %}
-    </select>
-  </label>
-  <label>Order
-    <select name="sort" data-testid="price-sort">
-      <option value="">Featured</option>
-      <option value="price_asc" {% if selected_sort == 'price_asc' %}selected{% endif %}>Price: low to high</option>
-      <option value="price_desc" {% if selected_sort == 'price_desc' %}selected{% endif %}>Price: high to low</option>
-    </select>
-  </label>
-  <button type="submit">Apply</button>
-</form>
+<div class="shell catalog-content">
+  <form class="filters" method="get" data-testid="catalog-filters">
+    <div class="filter-heading"><strong>Browse products</strong><span>{{ products|length }} results</span></div>
+    <label>Category
+      <select name="category" data-testid="category-filter">
+        <option value="">All categories</option>
+        {% for category in categories %}<option value="{{ category }}" {% if selected_category == category %}selected{% endif %}>{{ category }}</option>{% endfor %}
+      </select>
+    </label>
+    <label>Sort by
+      <select name="sort" data-testid="price-sort">
+        <option value="">Featured</option>
+        <option value="price_asc" {% if selected_sort == 'price_asc' %}selected{% endif %}>Price: low to high</option>
+        <option value="price_desc" {% if selected_sort == 'price_desc' %}selected{% endif %}>Price: high to low</option>
+      </select>
+    </label>
+    <button class="button-secondary filter-button" type="submit">Apply filters</button>
+  </form>
 
-<section class="product-grid" data-testid="product-list">
-  {% for product in products %}
-  <article class="product-card" data-testid="product-card">
-    <div class="product-number">0{{ product.id }}</div>
-    <p class="category">{{ product.category }}</p>
-    <h2><a href="/products/{{ product.id }}" data-testid="product-name">{{ product.name }}</a></h2>
-    <p>{{ product.description }}</p>
-    <div class="product-meta"><strong>${{ '%.2f'|format(product.price) }}</strong><span>{{ product.stock_quantity }} in stock</span></div>
-    <form method="post" action="/cart/items">
-      <input type="hidden" name="product_id" value="{{ product.id }}">
-      <input type="hidden" name="quantity" value="1">
-      <button type="submit" data-testid="add-to-cart-{{ product.id }}" {% if product.stock_quantity == 0 %}disabled{% endif %}>Add to cart</button>
-    </form>
-  </article>
-  {% else %}<p class="empty-state">No products match this category.</p>{% endfor %}
-</section>
+  <section class="product-grid" data-testid="product-list" aria-label="Products">
+    {% for product in products %}
+    <article class="product-card" data-testid="product-card">
+      <div class="card-topline"><p class="category">{{ product.category }}</p><span class="stock-pill">{{ product.stock_quantity }} in stock</span></div>
+      <h2><a href="/products/{{ product.id }}" data-testid="product-name">{{ product.name }}</a></h2>
+      <p class="product-description">{{ product.description }}</p>
+      <div class="product-meta"><strong>${{ '%.2f'|format(product.price) }}</strong></div>
+      <form method="post" action="/cart/items">
+        <input type="hidden" name="product_id" value="{{ product.id }}">
+        <input type="hidden" name="quantity" value="1">
+        <button type="submit" data-testid="add-to-cart-{{ product.id }}" {% if product.stock_quantity == 0 %}disabled{% endif %}>Add to cart</button>
+      </form>
+    </article>
+    {% else %}<div class="empty-state"><div class="state-mark" aria-hidden="true"></div><h2>No products found</h2><p>Try another category or clear the current filters.</p><a class="button" href="/">Show all products</a></div>{% endfor %}
+  </section>
+</div>
 {% endblock %}

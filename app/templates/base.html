@@ -7,14 +7,17 @@
   <link rel="stylesheet" href="{{ url_for('static', path='/styles.css') }}">
 </head>
 <body>
+  <a class="skip-link" href="#main-content">Skip to content</a>
   <header class="site-header">
-    <a class="brand" href="/" data-testid="home-link"><span>AI QA</span> SHOP</a>
-    <nav aria-label="Main navigation">
-      <a href="/">Catalog</a>
-      <a class="cart-link" href="/cart" data-testid="cart-link">Cart <strong>{{ cart_count }}</strong></a>
-    </nav>
+    <div class="shell header-inner">
+      <a class="brand" href="/" data-testid="home-link"><span class="brand-mark" aria-hidden="true"></span>AI QA Shop</a>
+      <nav aria-label="Main navigation">
+        <a class="nav-link" href="/">Catalog</a>
+        <a class="cart-link" href="/cart" data-testid="cart-link">Cart <strong aria-label="{{ cart_count }} items in cart">{{ cart_count }}</strong></a>
+      </nav>
+    </div>
   </header>
-  <main>{% block content %}{% endblock %}</main>
-  <footer>Small goods. Clear choices. Reliable checkout.</footer>
+  <main id="main-content">{% block content %}{% endblock %}</main>
+  <footer><div class="shell footer-inner"><span>AI QA Shop</span><span>Simple goods, straightforward checkout.</span></div></footer>
 </body>
 </html>

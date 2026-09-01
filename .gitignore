@@ -6,3 +6,7 @@ test-results/
 data/
 *.pyc
 .DS_Store
+.opencode/
+.agents/
+skills-lock.json
+.idea/

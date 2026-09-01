@@ -1,15 +1,16 @@
 {% extends "base.html" %}
 {% block title %}Checkout · AI QA Shop{% endblock %}
 {% block content %}
-<section class="page-heading"><p class="eyebrow">Final step</p><h1>Where should it go?</h1></section>
-<section class="checkout-layout">
-  <form class="checkout-form" method="post" action="/checkout" data-testid="checkout-form">
-    {% if error %}<p class="alert" role="alert">{{ error }}</p>{% endif %}
+<section class="page-heading shell"><p class="eyebrow">Final step</p><h1>Delivery details</h1><p>Tell us where to send your order.</p></section>
+<section class="checkout-layout shell">
+  <form class="checkout-form form-panel" method="post" action="/checkout" data-testid="checkout-form">
+    <div class="form-heading"><h2>Contact and address</h2><p>All fields are required.</p></div>
+    {% if error %}<p class="alert" role="alert" tabindex="-1">{{ error }}</p>{% endif %}
     <label>Full name<input name="customer_name" required value="{{ values.get('customer_name', '') }}" data-testid="customer-name"></label>
     <label>Email address<input type="email" name="email" required value="{{ values.get('email', '') }}" data-testid="email"></label>
     <label>Delivery address<textarea name="delivery_address" required data-testid="delivery-address">{{ values.get('delivery_address', '') }}</textarea></label>
     <button type="submit" data-testid="place-order">Place order</button>
   </form>
-  <aside class="summary"><span>{{ cart['items']|length }} item types</span><strong>${{ '%.2f'|format(cart.total_price) }}</strong><p>No payment is required for this shop.</p></aside>
+  <aside class="summary"><p class="summary-label">Order summary</p><div class="summary-row"><span>{{ cart['items']|length }} item types</span><strong>${{ '%.2f'|format(cart.total_price) }}</strong></div><p>No payment is required. Your order is created as soon as the form is valid.</p></aside>
 </section>
 {% endblock %}

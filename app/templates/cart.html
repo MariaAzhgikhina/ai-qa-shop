@@ -1,24 +1,24 @@
 {% extends "base.html" %}
 {% block title %}Cart · AI QA Shop{% endblock %}
 {% block content %}
-<section class="page-heading"><p class="eyebrow">Your selection</p><h1>Shopping cart</h1></section>
-{% if request.query_params.get('error') %}<p class="alert container" role="alert">{{ request.query_params.get('error') }}</p>{% endif %}
-<section class="cart-layout" data-testid="cart-page">
-  <div>
+<section class="page-heading shell"><p class="eyebrow">Your selection</p><h1>Shopping cart</h1><p>Review quantities before continuing to checkout.</p></section>
+{% if request.query_params.get('error') %}<p class="alert shell" role="alert">{{ request.query_params.get('error') }}</p>{% endif %}
+<section class="cart-layout shell" data-testid="cart-page">
+  <div class="cart-items">
   {% for item in cart['items'] %}
     <article class="cart-item" data-testid="cart-item">
-      <div><p class="category">{{ item.product.category }}</p><h2><a href="/products/{{ item.product.id }}">{{ item.product.name }}</a></h2><p>${{ '%.2f'|format(item.product.price) }} each</p></div>
-      <form method="post" action="/cart/items/{{ item.product.id }}">
+      <div class="cart-product"><p class="category">{{ item.product.category }}</p><h2><a href="/products/{{ item.product.id }}">{{ item.product.name }}</a></h2><p>${{ '%.2f'|format(item.product.price) }} each</p></div>
+      <form class="quantity-form" method="post" action="/cart/items/{{ item.product.id }}">
         <label>Qty <input type="number" name="quantity" min="1" max="{{ item.product.stock_quantity }}" value="{{ item.quantity }}"></label>
-        <button type="submit">Update</button>
+        <button class="button-secondary" type="submit">Update</button>
       </form>
-      <strong>${{ '%.2f'|format(item.subtotal) }}</strong>
-      <form method="post" action="/cart/items/{{ item.product.id }}/delete"><button class="text-button" type="submit">Remove</button></form>
+      <strong class="item-subtotal">${{ '%.2f'|format(item.subtotal) }}</strong>
+      <form class="remove-form" method="post" action="/cart/items/{{ item.product.id }}/delete"><button class="text-button" type="submit">Remove</button></form>
     </article>
   {% else %}
-    <div class="empty-state" data-testid="empty-cart"><h2>Your cart is empty.</h2><p>Browse the catalog and choose something useful.</p><a class="button" href="/">Explore products</a></div>
+    <div class="empty-state" data-testid="empty-cart"><div class="state-mark" aria-hidden="true"></div><h2>Your cart is empty</h2><p>Browse the catalog and choose something useful.</p><a class="button" href="/">Explore products</a></div>
   {% endfor %}
   </div>
-  {% if cart['items'] %}<aside class="summary"><span>Total</span><strong data-testid="cart-total">${{ '%.2f'|format(cart.total_price) }}</strong><a class="button" href="/checkout" data-testid="checkout-link">Continue to checkout</a></aside>{% endif %}
+  {% if cart['items'] %}<aside class="summary"><p class="summary-label">Order summary</p><div class="summary-row"><span>Total</span><strong data-testid="cart-total">${{ '%.2f'|format(cart.total_price) }}</strong></div><p>Stock is checked again when you place the order.</p><a class="button" href="/checkout" data-testid="checkout-link">Continue to checkout</a></aside>{% endif %}
 </section>
 {% endblock %}
