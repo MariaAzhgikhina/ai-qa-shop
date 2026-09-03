@@ -19,18 +19,40 @@ AI QA Shop — небольшой учебный интернет-магазин
 ```text
 ai-qa-shop/
 ├── app/
-│   ├── api/             # REST endpoints
-│   ├── models/          # схемы входных данных
-│   ├── services/        # операции магазина
-│   ├── static/          # CSS
-│   ├── templates/       # HTML-шаблоны
+│   ├── api/                 # REST endpoints
+│   │   ├── products/
+│   │   ├── cart/
+│   │   └── orders/
+│   ├── models/              # схемы входных данных
+│   │   ├── cart/
+│   │   └── orders/
+│   ├── services/            # операции магазина
+│   │   ├── products/
+│   │   ├── cart/
+│   │   └── orders/
+│   ├── web/                 # HTML endpoints
+│   │   ├── products/
+│   │   ├── cart/
+│   │   └── orders/
+│   ├── static/              # CSS
+│   ├── templates/           # HTML-шаблоны
+│   │   ├── shared/
+│   │   ├── products/
+│   │   ├── cart/
+│   │   └── orders/
 │   ├── database.py
 │   └── main.py
 ├── requirements/
 │   └── product_requirements.md
 ├── tests/
 │   ├── api/
+│   │   ├── products/
+│   │   ├── cart/
+│   │   └── orders/
 │   └── e2e/
+│       ├── products/
+│       ├── cart/
+│       └── orders/
 ├── Dockerfile
 ├── Makefile
 ├── docker-compose.yml

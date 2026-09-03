@@ -1,5 +1,5 @@
 from app.errors import ShopError
-from app.services.catalog import get_product
+from app.services.products.service import get_product
 
 
 def _validate_quantity(quantity: int) -> None:
