@@ -25,7 +25,7 @@ A user must be able to change the quantity of an item already in the cart.
 A user must be able to remove an item from the cart.
 
 ## REQ-009
-The cart must display the total price of all selected items.
+The cart must display the total price of all selected items, calculated as each product's price multiplied by its quantity.
 
 ## REQ-010
 The cart must not accept zero or negative item quantities.
