@@ -6,7 +6,26 @@ test-results/
 data/
 *.pyc
 .DS_Store
+.idea/
+
+# AI tools
+.continue/
+.continueignore
+.claude/
+.cursor/
+.codex/
+.gemini/
+mcp.json
+.github
+AGENTS.md
+CLAUDE.md
+GEMINI.md
+.copilotignore
+.cursorignore
+.cursorindexignore
+.claudeignore
+opencode.jsonc
 .opencode/
 .agents/
+.mcp.json
 skills-lock.json
-.idea/
