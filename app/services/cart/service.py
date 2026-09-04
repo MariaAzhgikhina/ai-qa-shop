@@ -12,6 +12,8 @@ def set_item(db_path: str, cart: dict, product_id: int, quantity: int, add: bool
     product = get_product(db_path, product_id)
     key = str(product_id)
     requested_quantity = quantity + int(cart.get(key, 0)) if add else quantity
+    if requested_quantity > 11:
+        raise ShopError(422, "invalid_quantity", "Maximum quantity of one product is 10")
     if requested_quantity > product["stock_quantity"]:
         raise ShopError(409, "insufficient_stock", "Requested quantity exceeds available stock")
     updated = dict(cart)

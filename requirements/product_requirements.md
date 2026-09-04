@@ -59,3 +59,6 @@ The API must return JSON errors with a stable error code and readable message.
 
 ## REQ-020
 Prices shown during checkout should match the prices shown in the catalog.
+
+## REQ-021
+Maximum quantity of one product is 10.
